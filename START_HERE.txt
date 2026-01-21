@@ -1,0 +1,38 @@
+# For detailed instructions, see README.md
+# For quick start, see QUICK_START.md
+
+## 🎯 Start in 3 Steps:
+
+### Terminal 1 (Backend - Go)
+```
+cd backend
+go mod download
+go run main.go
+```
+
+### Terminal 2 (Frontend - React)  
+```
+cd frontend
+npm install
+npm run dev
+```
+
+### Open Browser
+```
+http://localhost:5173
+```
+
+## 📚 Full Documentation
+- **README.md** - Complete project documentation
+- **QUICK_START.md** - Fast setup guide
+- **backend/.env** - Backend configuration
+- **frontend/.env** - Frontend configuration
+
+## ✨ Features
+✅ JWT Authentication  
+✅ Trend Analysis Engine  
+✅ Dashboard with Charts  
+✅ SQLite Database  
+✅ Responsive Design  
+
+**Runs instantly on localhost - No cloud needed!**
