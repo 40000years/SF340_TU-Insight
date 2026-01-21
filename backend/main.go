@@ -44,6 +44,12 @@ func main() {
 	// Try different possible paths (relative to app root)
 	var staticPath string
 	possiblePaths := []string{
+		"../dist/frontend",
+		"./dist/frontend",
+		"dist/frontend",
+		"../frontend/dist",
+		"./frontend/dist",
+		"frontend/dist",
 		"../frontend",
 		"./frontend",
 		"frontend",

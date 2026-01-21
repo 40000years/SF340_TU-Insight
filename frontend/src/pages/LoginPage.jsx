@@ -2,8 +2,9 @@ import { useState } from 'react'
 import { authAPI } from '../api'
 import { useAuth } from '../context/AuthContext'
 import '../styles/auth.css'
+import logo from '../../logo_prod.png'
 
-export default function LoginPage() {
+export default function LoginPage({ theme, onToggleTheme }) {
   const { login } = useAuth()
   const [isLogin, setIsLogin] = useState(true)
   const [loading, setLoading] = useState(false)
@@ -51,10 +52,14 @@ export default function LoginPage() {
   return (
     <div className="auth-container">
       <div className="auth-card">
-        <h1 className="auth-title">
-          {isLogin ? '📊 Login' : '📊 Register'}
-        </h1>
-        <p className="auth-subtitle">Marketing Trend Analysis</p>
+        <div className="auth-card-top">
+          <div className="brand-center">
+            <img src={logo} alt="TU Insight logo" className="brand-logo-center" />
+          </div>
+          <button type="button" className="theme-toggle" onClick={onToggleTheme}>
+            {theme === 'light' ? '🌙 Night' : '☀️ Light'}
+          </button>
+        </div>
 
         {error && <div className="error-message">{error}</div>}
 
