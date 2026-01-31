@@ -5,6 +5,10 @@ import { useAuth } from '../context/AuthContext'
 import TrendForm from '../components/TrendForm'
 import TrendChart from '../components/TrendChart'
 import MetricsCard from '../components/MetricsCard'
+import DataImport from '../components/DataImport'
+import WhatIfAnalysis from '../components/WhatIfAnalysis'
+import InsightCard from '../components/InsightCard'
+import ToastProvider from '../components/ToastProvider'
 import '../styles/dashboard.css'
 import logo from '../../logo_prod.png'
 
@@ -47,14 +51,14 @@ export default function DashboardPage({ theme, onToggleTheme }) {
   const filterAndSortTrends = () => {
     let filtered = trends.filter((trend) => {
       if (!trend || !trend.category || !trend.target_group) return false
-      
-      const matchesSearch = 
+
+      const matchesSearch =
         trend.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
         trend.target_group.toLowerCase().includes(searchQuery.toLowerCase())
-      
+
       const trendValue = trend.trend ? trend.trend.toLowerCase() : ''
       const matchesTrend = filterTrend === 'all' || trendValue === filterTrend.toLowerCase()
-      
+
       return matchesSearch && matchesTrend
     })
 
@@ -132,6 +136,8 @@ export default function DashboardPage({ theme, onToggleTheme }) {
         </div>
       </header>
 
+      <ToastProvider />
+
       <div className="tabs">
         <button
           className={`tab ${activeTab === 'dashboard' ? 'active' : ''}`}
@@ -144,6 +150,18 @@ export default function DashboardPage({ theme, onToggleTheme }) {
           onClick={() => setActiveTab('analyze')}
         >
           🔍 Analyze
+        </button>
+        <button
+          className={`tab ${activeTab === 'import' ? 'active' : ''}`}
+          onClick={() => setActiveTab('import')}
+        >
+          📥 Import Data
+        </button>
+        <button
+          className={`tab ${activeTab === 'whatif' ? 'active' : ''}`}
+          onClick={() => setActiveTab('whatif')}
+        >
+          🔮 What-If
         </button>
         <button
           className={`tab ${activeTab === 'history' ? 'active' : ''}`}
@@ -238,8 +256,8 @@ export default function DashboardPage({ theme, onToggleTheme }) {
                                       trend.toLowerCase() === 'upward'
                                         ? '#10b981'
                                         : trend.toLowerCase() === 'downward'
-                                        ? '#ef4444'
-                                        : '#f59e0b',
+                                          ? '#ef4444'
+                                          : '#f59e0b',
                                   }}
                                 ></div>
                               </div>
@@ -250,6 +268,9 @@ export default function DashboardPage({ theme, onToggleTheme }) {
                       </div>
                     </>
                   )}
+
+                  {/* AI Insights */}
+                  <InsightCard />
                 </>
               )}
             </section>
@@ -259,6 +280,21 @@ export default function DashboardPage({ theme, onToggleTheme }) {
             <section className="section">
               <h2 className="section-title">🔍 Analyze New Trend</h2>
               <TrendForm onTrendAdded={handleTrendAdded} />
+            </section>
+          )}
+
+          {activeTab === 'import' && (
+            <section className="section">
+              <DataImport onDataImported={(data) => {
+                console.log('Imported data:', data)
+                // You can process the imported data here
+              }} />
+            </section>
+          )}
+
+          {activeTab === 'whatif' && (
+            <section className="section">
+              <WhatIfAnalysis baselineData={metrics} />
             </section>
           )}
 
